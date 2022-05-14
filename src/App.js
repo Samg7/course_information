@@ -1,25 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
+const Header = ({ course }) => <h1>{course}</h1>
 
-function App() {
+// Sum all exercises of each part
+const Total = ({ parts }) => {
+  let sum = 0
+  for (let i = 0; i < parts.length; i++) {
+    sum += parts[i].exercises
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <p><b>total of exercises {sum}</b></p>
+  )
 }
 
-export default App;
+const Part = ({ part }) => 
+  <p>
+    {part.name} {part.exercises}
+  </p>
+
+const Content = ({ parts }) => 
+  <>
+    {parts.map(part =>
+      <Part key={part.id} part={part} />
+    )}     
+  </>
+
+const Course = ({course}) =>
+  <>
+    <Header course={course.name} />
+    <Content parts={course.parts} />
+    <Total parts={course.parts} />
+  </>
+
+const App = () => {
+  const course = {
+    id: 1,
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10,
+        id: 1
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7,
+        id: 2
+      },
+      {
+        name: 'State of a component',
+        exercises: 14,
+        id: 3
+      },
+      {
+        name: 'Redux',
+        exercises: 11,
+        id: 4
+      },
+      {
+        name: 'const char* cStr = nullptr;',
+        exercises: 4,
+        id: 5
+      }
+    ]
+  }
+
+  return <Course course={course} />
+}
+
+export default App
