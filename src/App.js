@@ -2,13 +2,15 @@ const Header = ({ course }) => <h1>{course}</h1>
 
 // Sum all exercises of each part
 const Total = ({ parts }) => {
-  let sum = 0
-  for (let i = 0; i < parts.length; i++) {
-    sum += parts[i].exercises
-  }
+  const initialValue = 0
+
+  const sum = parts.reduce((prev, curr) => {
+    console.log('what is happening', prev, curr)
+    return prev + curr.exercises
+  }, initialValue);
 
   return (
-    <p><b>total of exercises {sum}</b></p>
+    <p><b>total of exercises {sum}</b></p> 
   )
 }
 
@@ -21,7 +23,7 @@ const Content = ({ parts }) =>
   <>
     {parts.map(part =>
       <Part key={part.id} part={part} />
-    )}     
+    )}
   </>
 
 const Course = ({course}) =>
